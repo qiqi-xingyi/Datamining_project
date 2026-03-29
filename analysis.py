@@ -47,7 +47,7 @@ NUM_COLS = [
 print("Preprocessing done.\n")
 print(df[NUM_COLS].describe().round(3).to_string())
 
-# ── 2  Distribution Plots ─────────────────────────────────────────────
+# 2  Distribution Plots
 
 # 2a  Engagement rate distribution (log-transformed)
 fig, axes = plt.subplots(1, 3, figsize=(15, 4.5))
@@ -84,7 +84,7 @@ plt.savefig(os.path.join(FIG_DIR, "fig2_platform_boxplots.pdf"), dpi=150)
 plt.close()
 print("✓ fig2_platform_boxplots.pdf")
 
-# ── 3  Correlation Heatmap ────────────────────────────────────────────
+#  3  Correlation Heatmap
 corr = df[NUM_COLS].corr()
 mask = np.triu(np.ones_like(corr, dtype=bool))
 fig, ax = plt.subplots(figsize=(10, 8))
@@ -108,7 +108,7 @@ corr_pairs["abs_r"] = corr_pairs["r"].abs()
 print("\nTop 10 correlations:")
 print(corr_pairs.nlargest(10, "abs_r")[["Var1", "Var2", "r"]].to_string(index=False))
 
-# ── 4  Sentiment vs Engagement Scatter ────────────────────────────────
+# 4  Sentiment vs Engagement Scatter
 fig, axes = plt.subplots(1, 2, figsize=(13, 5))
 
 axes[0].scatter(df["sentiment_score"], df["engagement_rate"],
@@ -136,7 +136,7 @@ plt.savefig(os.path.join(FIG_DIR, "fig4_scatter_sentiment_engagement.pdf"), dpi=
 plt.close()
 print("✓ fig4_scatter_sentiment_engagement.pdf")
 
-# ── 5  Temporal Patterns ──────────────────────────────────────────────
+#  5  Temporal Patterns
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 # By hour
@@ -163,7 +163,7 @@ plt.savefig(os.path.join(FIG_DIR, "fig5_temporal_patterns.pdf"), dpi=150)
 plt.close()
 print("✓ fig5_temporal_patterns.pdf")
 
-# ── 6  Brand & Campaign Analysis ──────────────────────────────────────
+#  6  Brand & Campaign Analysis
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 # Brand engagement
@@ -193,7 +193,7 @@ plt.savefig(os.path.join(FIG_DIR, "fig6_brand_campaign.pdf"), dpi=150)
 plt.close()
 print("✓ fig6_brand_campaign.pdf")
 
-# ── 7  Emotion & Sentiment Interaction ────────────────────────────────
+#  7  Emotion & Sentiment Interaction
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 # Engagement by emotion type
@@ -215,7 +215,7 @@ plt.savefig(os.path.join(FIG_DIR, "fig7_emotion_sentiment.pdf"), dpi=150)
 plt.close()
 print("✓ fig7_emotion_sentiment.pdf")
 
-# ── 8  Topic Category Analysis ────────────────────────────────────────
+#  8  Topic Category Analysis
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 topic_eng = df.groupby("topic_category")["engagement_rate"].mean().sort_values(ascending=True)
@@ -234,7 +234,7 @@ plt.savefig(os.path.join(FIG_DIR, "fig8_topic_analysis.pdf"), dpi=150)
 plt.close()
 print("✓ fig8_topic_analysis.pdf")
 
-# ── 9  PCA Visualization ─────────────────────────────────────────────
+#  9  PCA Visualization
 from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(df[NUM_COLS].dropna())
@@ -260,7 +260,7 @@ for name, l1, l2 in zip(NUM_COLS, pca.components_[0], pca.components_[1]):
     print(f"  {name:30s}  {l1:+.3f}  {l2:+.3f}")
 print(f"  Explained variance: PC1={pca.explained_variance_ratio_[0]:.3f}, PC2={pca.explained_variance_ratio_[1]:.3f}")
 
-# ── 10  Regression: Feature Importance ────────────────────────────────
+# 10  Regression: Feature Importance
 features = [
     "sentiment_score", "toxicity_score", "impressions",
     "user_past_sentiment_avg", "user_engagement_growth",
@@ -290,7 +290,7 @@ rf_scores = cross_val_score(rf, X, y, cv=5, scoring="r2")
 print(f"\nLinear Regression CV R²: {lr_scores.mean():.4f} ± {lr_scores.std():.4f}")
 print(f"Random Forest CV R²:    {rf_scores.mean():.4f} ± {rf_scores.std():.4f}")
 
-# ── 11  Statistical Tests ─────────────────────────────────────────────
+#  11  Statistical Tests
 print("\n── Statistical Tests ──")
 
 # ANOVA: engagement_rate across platforms
