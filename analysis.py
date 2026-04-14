@@ -19,11 +19,7 @@ import os
 sns.set_theme(style="whitegrid", font_scale=1.1)
 FIG_DIR = os.path.join(os.path.dirname(__file__), "figures")
 os.makedirs(FIG_DIR, exist_ok=True)
-DATA_PATH = os.path.expanduser(
-    "~/.cache/kagglehub/datasets/subashmaster0411/"
-    "social-media-engagement-dataset/versions/1/"
-    "Social Media Engagement Dataset.csv"
-)
+DATA_PATH = "data/Social Media Engagement Dataset.csv"
 
 df = pd.read_csv(DATA_PATH)
 print(f"Loaded {df.shape[0]} rows × {df.shape[1]} columns")
